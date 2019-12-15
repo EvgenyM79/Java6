@@ -1,71 +1,58 @@
+import java.awt.*;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
+import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        Scanner str1 = new Scanner(System.in);
+        //List<String> lines = Arrays.asList("hello", "world");
+        //Files.write(Paths.get("D:\\Java\\demo.txt"), lines, StandardOpenOption.CREATE);
+
         String[] masCar = new String[]{"C100_1-100", "C200_1-120-1200", "C300_1-120-30", "C400_1-80-20", "C100_2-50", "C200_2-40-1000", "C300_2-200-45", "C400_2-10-20",
                 "C100_3-10", "C200_3-170-1100", "C300_3-150-29", "C400_3-100-28", "C100_1-300", "C200_1-100-750", "C300_1-32-15", "C200_4-200-15"};
-        double[][] masVes = new double[][]{{100, 12.5, 46.10, 0}, {200, 12, 48.90, 0}, {300, 11.5, 47.50, 0},{400, 20, 48.90, 0}};
-        String[] masParCar = masCar[0].substring(1).split("[-_]+"); //Инициализация переменной для разложение (например "200_1-120-1200) на все параметры одной машины
-        ArrayList<TempCar> listCar = new ArrayList<>();
-        TempCar tmpCar;
-        int tmpPBigAvto = 0;
-        for (int i = 0; i < masCar.length; i++) {
-            masParCar = masCar[i].split("[-_]+");
-            if (masParCar[0].equals("C100"))
-                tmpPBigAvto = 0;
-            else
-                tmpPBigAvto = Integer.parseInt(masParCar[3]);
-            tmpCar = new TempCar(Integer.parseInt(masParCar[0].replaceFirst("C", "")), masParCar[1],
-                    Integer.parseInt(masParCar[2]), masVes[0][1], masVes[0][2], tmpPBigAvto);
-            if (!listCar.contains(tmpCar))
-                listCar.add(tmpCar);
-            else{
-                ListIterator<TempCar> iterator = listCar.listIterator();
-                while (iterator.hasNext()) {
-                    TempCar next = iterator.next();
-                    if (next.equals(tmpCar)){
-                        //Replace element
-                        System.out.println(iterator.nextIndex()-1 + " " + listCar.get(iterator.nextIndex()-1).km + " + " + tmpCar.km );
-                        System.out.println(iterator.nextIndex()-1 + " " + listCar.get(iterator.nextIndex()-1).pBigAvto + " + " + tmpCar.pBigAvto );
-                        tmpCar.km += listCar.get(iterator.nextIndex()-1).km;
-                        tmpCar.pBigAvto += listCar.get(iterator.nextIndex()-1).pBigAvto;
-                        iterator.set(tmpCar);
-                    }
-                }
-            }
-            System.out.println("М:"+ tmpCar.model + " Гос№:" + tmpCar.gosNum + " Пр: " + tmpCar.km +  " расход:" + tmpCar.prkm + " цена:" + tmpCar.cena + " доп пр: " + tmpCar.pBigAvto);
+        String[] masVes = new String[]{"100,12.5,46.10,0", "200,12,48.90,0", "300,11.5,47.50,0", "400,20,48.90,0"};
+        String[] st1 = new String[]{"C100_1", "C200_1", "C300_1"};
+        String[] st2 = new String[]{"C100_1-100", "C200_1-120-1200", "C300_1-120-30"};
+        HashMap<String, String> mapCar = new HashMap<>();
+        mapCar.put(st1[0], st2[0]);
+        mapCar.put(st1[1], st2[1]);
+        mapCar.put(st1[2], st2[2]);
+        System.out.println(mapCar);
+        //Для записи файла
+        //List<String> linesCar = Arrays.asList(masCar);
+        //Files.write(Paths.get("D:\\Java\\listCar.txt"), linesCar, StandardOpenOption.CREATE);
+        //List<String> linesVes = Arrays.asList(masVes);
+        //Files.write(Paths.get("D:\\Java\\listVes.txt"), linesVes, StandardOpenOption.CREATE);
+        List<String> linesCar2 = Files.readAllLines(Paths.get("D:\\Java\\listCar.txt"));
+        System.out.println(linesCar2);
+        for (String two : linesCar2) {
+            System.out.println(two);
         }
-        System.out.println("ArrayList без дублей");
-        for (TempCar car : listCar){
-            System.out.println("М:"+ car.model + " Гос№:" + car.gosNum + " Пр: " + car.km +  " расход:" + car.prkm + " цена:" + car.cena + " доп пр: " + car.pBigAvto);
-        }
-        ClassCalc.calcAll(listCar);
-        listCar.sort(new Comparator<TempCar>() {
-            @Override
-            public int compare(TempCar o1, TempCar o2) {
-                return o1.km.compareTo(o2.km);
+        List<String> linesVes2 = Files.readAllLines(Paths.get("D:\\Java\\listVes.txt"));
+        System.out.println(linesVes2);
 
-            }
-        });
-        System.out.println("ArrayList отсортированный по пробегу ");
-        for (TempCar car : listCar){
-            System.out.println("М:"+ car.model + " Гос№:" + car.gosNum + " Пр: " + car.km +  " расход:" + car.prkm + " цена:" + car.cena + " доп пр: " + car.pBigAvto);
+        MyCar car3;
+        HashMap<String, MyCar> mapCar2 = new HashMap<>();
+        int i = 0;
+        String[] masParCar;
+        for (String two : linesCar2) {
+            System.out.println(two);
+            masParCar = two.split("[-_]+");
+            car3 = new MyCar((masParCar[0].replaceFirst("C", "")), masParCar[1], Integer.parseInt(masParCar[2]), 100.0, 45.12, 0);
+            System.out.println(car3);
+            mapCar2.put((masParCar[0].replaceFirst("C", "")) + masParCar[1], car3);
         }
 
-        listCar.sort(new Comparator<TempCar>() {
-            @Override
-            public int compare(TempCar o1, TempCar o2) {
-                return o1.pBigAvto.compareTo(o2.pBigAvto) + o1.km.compareTo(o2.km);
+        System.out.println(mapCar2);
 
-            }
-        });
-        System.out.println("ArrayList отсортированный по пробегу и доп. параметру ");
-        for (TempCar car : listCar){
-            System.out.println("М:"+ car.model + " Гос№:" + car.gosNum + " Пр: " + car.km +  " расход:" + car.prkm + " цена:" + car.cena + " доп пр: " + car.pBigAvto);
-        }
+        // write your code here
     }
 }
-
-
-
