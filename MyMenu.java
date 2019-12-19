@@ -10,8 +10,8 @@ public class MyMenu {
 
     private void printMenu() {
         System.out.println("1. Добавление авто;");
-        System.out.println("2. Создание массива из чисел Фибоначчи;");
-        System.out.println("3. Создания двумерного массива;");
+        System.out.println("2. Метод;");
+        System.out.println("3. Метод;");
         System.out.println("q. Выход из приложения;");
     }
 
@@ -24,6 +24,7 @@ public class MyMenu {
                 key = this.scanner.nextLine();
                 switch (key) {
                     case "1":
+                        //MainGSM.Init();
                         break;
                     case "2":
                         break;

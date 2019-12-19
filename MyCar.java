@@ -3,7 +3,7 @@ public class MyCar {
     private String model;
     private Integer km, pBigAvto;
     private String gosNum;
-    private Double prkm, cena;
+
 
     @Override
     public boolean equals(Object obj) {
@@ -11,12 +11,11 @@ public class MyCar {
         return (this.model.equals(tmpCar.model)) && (this.gosNum.equals(tmpCar.gosNum));
     }
 
-    public MyCar(String model, String gosNum, Integer km, Double prkm, Double cena, Integer pBigAvto){
+    public MyCar(String model, String gosNum, Integer km, Integer pBigAvto){
         this.model = model;
         this.gosNum = gosNum;
         this.km = km;
-        this.prkm = prkm;
-        this.cena = cena;
+
         this.pBigAvto = pBigAvto;
     }
 
@@ -33,13 +32,13 @@ public class MyCar {
         this.gosNum = gosNum;
     }
     @Override
-    public String toString()	{
-        return "model : " + model + "; gosNum : " + gosNum;
+    public String toString(){
+        return "{model : " + model + "} {gosNum : " + gosNum + "} {km : " + km + "} {pBigAvto : " + pBigAvto + "}";
     }
     public Integer getKm() {
         return km;
     }
-    public void setKm(Integer model) {
+    public void setKm(Integer km) {
         this.km = km;
     }
     public Integer getPBigAvto() {
