@@ -22,8 +22,7 @@ public class Main {
         CarUtils rCar = new CarUtils();
         rCar.returnArrayParam();
         rCar.returnArrayCar();
-
-
-
+        rCar.calcAll();
+        rCar.SortCar();
     }
 }
