@@ -10,6 +10,10 @@ public class CarsWR implements ICarRW {
 
     @Override
     public List<String> readCar() throws IOException {
-        return Files.readAllLines(Paths.get("listCar.txt"));
+        List<String> test;
+        //return Files.readAllLines(Paths.get("listCar.txt"));
+        test = Files.readAllLines(Paths.get("listCar.txt"));
+        System.out.println(test);
+        return test;
     }
 }

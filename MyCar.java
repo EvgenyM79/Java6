@@ -22,14 +22,8 @@ public class MyCar {
     public String getModel() {
         return model;
     }
-    public void setModel(String model) {
-        this.model = model;
-    }
     public String getGosNum() {
         return gosNum;
-    }
-    public void setGosNum(String gosNum) {
-        this.gosNum = gosNum;
     }
     @Override
     public String toString(){

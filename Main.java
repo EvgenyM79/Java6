@@ -12,17 +12,22 @@ public class Main {
         //new MyMenu(new Scanner(System.in)).start();
 
         //Этот код перенести в MyMenu
-        /*ICarRW carRW = null;
-        MainGSM mGSM = new MainGSM(carRW);
+        CarsWR loadCar = new CarsWR();
+        //List<String> listCar = loadCar.readCar();
+        //System.out.println(listCar);
+        //loadCar.readCar();
+
+        MainGSM mGSM = new MainGSM(loadCar);
+        //MainGSM mGSM = new MainGSM();
         mGSM.Init();
-        System.out.println(mGSM.getCarRW());*/
+        System.out.println(mGSM.getCarRW());
 
         //для тесторивания
         //List<String> linesCar = null;
-        CarUtils rCar = new CarUtils();
+        /*CarUtils rCar = new CarUtils();
         rCar.returnArrayParam();
         rCar.returnArrayCar();
         rCar.calcAll();
-        rCar.SortCar();
+        rCar.SortCar();*/
     }
 }
