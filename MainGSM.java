@@ -15,7 +15,6 @@ public class MainGSM  {
 
     public MainGSM(ICarRW carRW) {
         this.carRW = carRW;
-        System.out.println(carRW);
     }
 
 
@@ -23,7 +22,7 @@ public class MainGSM  {
     public void Init() throws IOException {
         try {
             carRW.readCar();
-            System.out.println(carRW.toString());
+            System.out.println(carRW);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -20,7 +20,7 @@ public class Main {
         MainGSM mGSM = new MainGSM(loadCar);
         //MainGSM mGSM = new MainGSM();
         mGSM.Init();
-        System.out.println(mGSM.getCarRW());
+        System.out.println(mGSM.getCarRW().readCar().get(0));
 
         //для тесторивания
         //List<String> linesCar = null;
