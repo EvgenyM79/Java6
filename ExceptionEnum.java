@@ -1,13 +1,14 @@
 public enum ExceptionEnum {
     N1 ("NumberFormatException"),
-    N2 ("IOException");
-    private String error;
+    N2 ("IOException"),
+    N3 ("ArrayIndexOutOfBoundsException");
+    private String errorException;
 
     ExceptionEnum(String error){
-        this.error = error;
+        this.errorException = error;
     }
 
     public String getTitle() {
-        return error;
+        return errorException;
     }
 }

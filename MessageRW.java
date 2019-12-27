@@ -16,8 +16,8 @@ public class MessageRW implements IMassegeRW{
     }
 
     @Override
-    public String writeMessage(String fileName, String message) throws IOException {
-        Files.write(Paths.get("" + fileName), Arrays.asList(message), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+    public String writeMessage(String fileName, String message) throws IOException{
+            Files.write(Paths.get("" + fileName), Arrays.asList(message), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         return null;
     }
 

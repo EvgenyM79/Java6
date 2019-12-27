@@ -1,13 +1,13 @@
 public class MyException extends Exception {
 
-    public String p;
+    public String errorException;
 
     public MyException(String error, Throwable e){
         super(e);
-        p = error;
+        errorException = error;
     }
     public String getP(){
-        return p;
+        return errorException;
     }
 
 }
