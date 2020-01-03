@@ -1,11 +1,10 @@
-﻿import javax.imageio.plugins.jpeg.JPEGQTable;
 import java.io.IOException;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws IOException, MyException {
-	// write your code here
+        // write your code here
         MessageRW mRW = new MessageRW();
         FunctionLogging f1 = new FunctionLogging();
         //Добавление сообщения в лог файл
