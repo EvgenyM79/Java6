@@ -1,10 +1,10 @@
-/** Класс для вывода итоговой информации.
+/** Класс для вывода информации по кенкретной модели
  */
 
 import java.io.IOException;
 import java.util.*;
 
-public class CarUtils{
+public class CarUtils2 {
 
     private ArrayList<MyCar> listCar = new ArrayList<>();
     private ArrayList<CarParametrs> listParams = new ArrayList<>();
@@ -24,7 +24,7 @@ public class CarUtils{
         return listParams;
     }
 
-    public ArrayList<MyCar> returnArrayCar(List<String> loadListCar) throws IOException {
+    public ArrayList<MyCar> returnArrayCar(List<String> loadListCar, String model) throws IOException {
         //для тесторивания сделано чтение файла
         //List<String> linesCars = Files.readAllLines(Paths.get("listCar.txt"));
         //System.out.println(linesCars);
@@ -37,27 +37,29 @@ public class CarUtils{
                 tmpPBigAvto = 0;
             else
                 tmpPBigAvto = Integer.parseInt(masParCar[3]);
-            car3 = new MyCar((masParCar[0].replaceFirst("C", "")), masParCar[1], Integer.parseInt(masParCar[2]), tmpPBigAvto);
-            System.out.println(car3);
-            if (!listCar.contains(car3))
-                listCar.add(car3);
-            else{
-                ListIterator<MyCar> iterator = listCar.listIterator();
-                while (iterator.hasNext()) {
-                    MyCar next = iterator.next();
-                    if (next.equals(car3)){
-                        //Replace element
-                        System.out.println(iterator.nextIndex()-1 + " " + listCar.get(iterator.nextIndex()-1).getKm() + " + " + car3.getKm() );
-                        System.out.println(iterator.nextIndex()-1 + " " + listCar.get(iterator.nextIndex()-1).getPBigAvto() + " + " + car3.getPBigAvto() );
-                        car3.setKm(listCar.get(iterator.nextIndex()-1).getKm() + car3.getKm());
-                        car3.setPBigAvto(listCar.get(iterator.nextIndex()-1).getPBigAvto() + car3.getPBigAvto());
-                        iterator.set(car3);
-                        System.out.println(car3);
+            if (masParCar[0].equals(model)){
+                car3 = new MyCar((masParCar[0].replaceFirst("C", "")), masParCar[1], Integer.parseInt(masParCar[2]), tmpPBigAvto);
+                System.out.println(car3);
+                if (!listCar.contains(car3))
+                    listCar.add(car3);
+                else{
+                    ListIterator<MyCar> iterator = listCar.listIterator();
+                    while (iterator.hasNext()) {
+                        MyCar next = iterator.next();
+                        if (next.equals(car3)) {
+                            //Replace element
+                            System.out.println(iterator.nextIndex() - 1 + " " + listCar.get(iterator.nextIndex() - 1).getKm() + " + " + car3.getKm());
+                            System.out.println(iterator.nextIndex() - 1 + " " + listCar.get(iterator.nextIndex() - 1).getPBigAvto() + " + " + car3.getPBigAvto());
+                            car3.setKm(listCar.get(iterator.nextIndex() - 1).getKm() + car3.getKm());
+                            car3.setPBigAvto(listCar.get(iterator.nextIndex() - 1).getPBigAvto() + car3.getPBigAvto());
+                            iterator.set(car3);
+                            System.out.println(car3);
+                        }
                     }
                 }
             }
         }
-        //System.out.println(listCar);
+        System.out.println(listCar);
         return listCar;
     }
 
@@ -91,11 +93,10 @@ public class CarUtils{
         }
     }
 
-    public void calcAll(){
+    public void calcAll(String model){
         double[] allkm = {0,0,0,0};
         TreeMap<Double, Integer> map2 = new TreeMap<Double, Integer>();
         //TempCar chCar = new TempCar(0, "",0,0.0,0.0,0);
-
         for (MyCar car : listCar) {
             switch (car.getModel()) {
                 case "100": {
@@ -107,30 +108,34 @@ public class CarUtils{
                     break;
                 }
                 case "300": {
-                    allkm[2] +=  car.getKm() * listParams.get(2).getFuelConsumption() * listParams.get(2).getFuelPrice() / 100;
+                    allkm[2] += car.getKm() * listParams.get(2).getFuelConsumption() * listParams.get(2).getFuelPrice() / 100;
                     break;
                 }
                 case "400": {
-                    allkm[3] +=  car.getKm() * listParams.get(3).getFuelConsumption() * listParams.get(3).getFuelPrice() / 100;
+                    allkm[3] += car.getKm() * listParams.get(3).getFuelConsumption() * listParams.get(3).getFuelPrice() / 100;
                     break;
                 }
             }
         }
-        System.out.println("Расход для легковых авто(C100) составил " + allkm[0]);
-        System.out.println("Расход для грузовых авто(C200) составил " + allkm[1]);
-        System.out.println("Расход для посажирских авто(C300) составил " + allkm[2]);
-        System.out.println("Расход для тяжелой техники (краны)(C400) составил " + allkm[3]);
-        System.out.println("Общий расход составил " + (allkm[0] +allkm[1] + allkm[2] + allkm[3]));
-
-        for (int i = 0; i < 4; i ++) {
-            map2.put(allkm[i], (i+1)*100);
+        switch (model.replaceFirst("C", "")) {
+            case "100": {
+                System.out.println("Расход для легковых авто(C100) составил " + allkm[0]);
+                break;
+            }
+            case "200": {
+                System.out.println("Расход для грузовых авто(C200) составил " + allkm[1]);
+                break;
+            }
+            case "300": {
+                System.out.println("Расход для посажирских авто(C300) составил " + allkm[2]);
+                break;
+            }
+            case "400": {
+                System.out.println("Расход для тяжелой техники (краны)(C400) составил " + allkm[3]);
+                break;
+            }
         }
-        System.out.println(map2);
-        System.out.print("Тип авто " + map2.get(map2.firstKey()));
-        System.out.println(" с наименьшей стоимостью расходов " + map2.firstKey());
-        System.out.print("Тип авто " + map2.get(map2.lastKey()));
-        System.out.println(" с наибольшей стоимость расходов " + map2.lastKey());
     }
-
 }
+
 

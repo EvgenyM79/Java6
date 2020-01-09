@@ -1,3 +1,6 @@
+/** Класс параметров по всем моделям.
+ */
+
 public class CarParametrs {
 
     private String model;

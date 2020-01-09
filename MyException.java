@@ -1,3 +1,5 @@
+/** Класс обработки ошибок
+ */
 public class MyException extends Exception {
 
     public String p;

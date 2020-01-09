@@ -1,53 +1,58 @@
+/** Класс процедур вызываемый из меню.
+ * - Добавление авто
+ * - вывод общей информации
+ * - Вывод по конкретной модели.
+ */
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.List;
 
+public class MainGSM {
 
+    private IFileRW carRW;
 
-public class MainGSM  {
-
-    private ICarRW carRW;
-
-    private Collection<MyCar> myCars;  //здесь лучше private и создать get/
+    private Collection<MyCar> myCars;
     public Collection<CarParametrs> carParametrs;
 
-    public MainGSM(ICarRW carRW) {
+    public MainGSM(IFileRW carRW) {
         this.carRW = carRW;
     }
 
-
-
-    public void Init() throws IOException {
+    public void Init(String fCar, String fParam){
+        CarUtils rCar = new CarUtils();
         try {
-            carRW.readCar();
-            System.out.println(carRW);
+            carParametrs = rCar.returnArrayParam(carRW.readFile(fParam));
+            System.out.println(carParametrs);
+            myCars = rCar.returnArrayCar(carRW.readFile(fCar));
+            System.out.println(myCars);
+            rCar.calcAll();
+            rCar.SortCar();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ICarRW getCarRW(){
-        return carRW;
+        public void InitOneModelCar(String fCar, String fParam, String model){
+            CarUtils2 rOneCar = new CarUtils2();
+        try {
+            carParametrs = rOneCar.returnArrayParam(carRW.readFile(fParam));
+            System.out.println(carParametrs);
+            myCars = rOneCar.returnArrayCar(carRW.readFile(fCar), model);
+            System.out.println(myCars);
+            rOneCar.calcAll(model);
+            rOneCar.SortCar();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    /*public String toString(){
-        for (List<String> lineCar : carRW){
-
+    public void addCar(String fCar, String newParamCar) {
+        FileWR writeCar = new FileWR();
+        try {
+            writeCar.writeFile(fCar, newParamCar);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return carRW;
-    }*/
-
-    /*public interface ICarParamR{
-        static void readCar(Object object) throws IOException {
-
-            List<String> listParamsCar = Files.readAllLines(Paths.get("listParamsCars.txt"));
-        }
-    }*/
-
-
-
+    }
 
 
 }

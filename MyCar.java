@@ -1,3 +1,5 @@
+/** Класс авто, как объект.
+ */
 public class MyCar {
 
     private String model;
